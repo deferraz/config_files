@@ -1,0 +1,20 @@
+set sendmail  = "/usr/bin/msmtp"
+set from      = ""
+set realname  = ""
+set signature = "~/.signature"
+set imap_user = ""
+set folder    = ""
+set spoolfile = +INBOX
+set record    = "=Sent"
+set postponed = ""
+
+set header_cache     = "~/.cache/hcache/ferraz"
+set message_cachedir = "~/.cache/mcache/ferraz"
+set imap_keepalive   = 300
+set mail_check       = 120
+
+# Mailboxes to show in the sidebar.
+mailboxes +INBOX \
+          +Sent \
+          +Drafts \
+
