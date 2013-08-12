@@ -26,10 +26,13 @@ set smartcase
 
 syntax on
 set background=dark
-set laststatus=2
 
 " Settings for ctrlp                                                            
-set g:ctrlp_max_height = 30                                                     
 set wildignore+=*.pyc                                                           
 set wildignore+=*_build/*                                                       
 set wildignore+=*/coverage/* 
+
+" Powerline
+set t_Co=256
+" let g:Powerline_symbols = 'fancy'
+set laststatus=2
