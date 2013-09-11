@@ -27,12 +27,18 @@ set smartcase
 syntax on
 set background=dark
 
-" Settings for ctrlp                                                            
-set wildignore+=*.pyc                                                           
-set wildignore+=*_build/*                                                       
+" Settings for ctrlp
+set wildignore+=*.pyc
+set wildignore+=*_build/*
 set wildignore+=*/coverage/* 
 
 " Powerline
 set t_Co=256
 " let g:Powerline_symbols = 'fancy'
 set laststatus=2
+
+set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+
+au FileType py set autoindent
+au FileType py set smartindent
+au FileType py set textwidth=79 " PEP-8 Friendly
