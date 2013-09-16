@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/vim_cf3"]
 	path = .vim/bundle/vim_cf3
 	url = https://github.com/neilhwatson/vim_cf3.git
+[submodule ".vim/bundle/vim-golang"]
+	path = .vim/bundle/vim-golang
+	url = https://github.com/jnwhiteh/vim-golang
