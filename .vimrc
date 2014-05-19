@@ -15,11 +15,12 @@ set fo-=t  " don't automatically wrap text when typing
 
 set history=700
 set undolevels=700
+set tabstop=4
+set softtabstop=4
+set nofoldenable
 
 function! Python()
     set expandtab
-    set tabstop=4
-    set softtabstop=4
     set shiftround
     set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
     set colorcolumn=80
@@ -27,6 +28,7 @@ function! Python()
     autocmd FileType py set smartindent
     autocmd FileType py set textwidth=79 " PEP-8 Friendly
 endfunction
+
 
 function! Getchar()
     let c = getchar()
