@@ -22,6 +22,6 @@
 [submodule ".vim/bundle/vim-golang"]
 	path = .vim/bundle/vim-golang
 	url = https://github.com/jnwhiteh/vim-golang
-[submodule ".vim/bundle/vim_cf3.vim"]
-	path = .vim/bundle/vim_cf3.vim
-	url = https://github.com/neilhwatson/vim_cf3.git
+[submodule ".vim/bundle/ack"]
+	path = .vim/bundle/ack
+	url = https://github.com/mileszs/ack.vim.git
