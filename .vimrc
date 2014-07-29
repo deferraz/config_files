@@ -1,8 +1,9 @@
 execute pathogen#infect()
 
+
 syntax on
 set background=dark
-colorscheme desert
+"colorscheme desert
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 " easier moving of code blocks
@@ -14,17 +15,32 @@ set fo-=t  " don't automatically wrap text when typing
 
 set history=700
 set undolevels=700
+set tabstop=4
+set softtabstop=4
+set nofoldenable
 
 function! Python()
     set expandtab
-    set tabstop=4
-    set softtabstop=4
     set shiftround
     set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
     set colorcolumn=80
-    au FileType py set autoindent
-    au FileType py set smartindent
-    au FileType py set textwidth=79 " PEP-8 Friendly
+    autocmd FileType py set autoindent
+    autocmd FileType py set smartindent
+    autocmd FileType py set textwidth=79 " PEP-8 Friendly
+endfunction
+
+
+function! Getchar()
+    let c = getchar()
+    if c != 0
+        let c = nr2char(c)
+    endif
+    return c
+endfunction
+
+function! Eatchar(pat)
+    let c = Getchar()
+    return (c =~ a:pat) ? '' : c
 endfunction
 
 " Make search case insensitive
@@ -65,6 +81,13 @@ let g:syntastic_mode_map = { 'mode': 'active',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': ['html'] }
 
-au BufNewFile,BufRead *.go set filetype=go
+autocmd BufNewFile,BufRead *.go set filetype=go
 
 autocmd FileType python call Python()
+
+" CFEngine 
+autocmd BufNewFile,BufRead *.cf set filetype=cf3
+autocmd FileType cf3 set autoindent
+autocmd FileType cf3 set smartindent
+autocmd FileType cf3 filetype plugin indent on
+let g:EnableCFE3KeywordAbbreviations=1
