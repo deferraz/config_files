@@ -36,6 +36,14 @@ awful.util.spawn_with_shell("wmname LG3D")
 
 --{{---| Error handling |---------------------------------------------------------------------------
 
+function start_daemon(dae)
+    daeCheck = os.execute("ps -eF | grep -v grep | grep -w " .. dae)
+    if (daeCheck ~= nil) then
+        os.execute(dae .. " &")
+    end
+end
+start_daemon("gnome-settings-daemon")
+
 if awesome.startup_errors then
 	naughty.notify({ preset = naughty.config.presets.critical,
 		title = "Oops, there were errors during startup!",
