@@ -27,6 +27,7 @@ require('couth.couth') -- Volume changer widget
 require('couth.alsa') -- Volume changer integration
 -- Menu icons
 require('freedesktop.utils')
+require('autostart')
 
 hostname = io.popen("uname -n"):read() -- Host name for if you want the same rc.lua for multiple setups
 
@@ -34,15 +35,9 @@ hostname = io.popen("uname -n"):read() -- Host name for if you want the same rc.
 
 awful.util.spawn_with_shell("wmname LG3D")
 
---{{---| Error handling |---------------------------------------------------------------------------
+awful.util.spawn_with_shell("/usr/bin/gnome-settings-daemon")
 
-function start_daemon(dae)
-    daeCheck = os.execute("ps -eF | grep -v grep | grep -w " .. dae)
-    if (daeCheck ~= nil) then
-        os.execute(dae .. " &")
-    end
-end
-start_daemon("gnome-settings-daemon")
+--{{---| Error handling |---------------------------------------------------------------------------
 
 if awesome.startup_errors then
 	naughty.notify({ preset = naughty.config.presets.critical,
@@ -71,13 +66,14 @@ beautiful.init(themes_dir .. "/vicious-powerarrow/theme.lua")
 --{{---| Variables |--------------------------------------------------------------------------------
 
 modkey        = "Mod4" -- Windows (super) key
-terminal      = "terminator"
+terminal      = "sakura"
 	freedesktop.utils.terminal = terminal
 terminalr     = "terminator -x su root" -- Root terminal
 musicplr      = "terminator -e cmus"
 editor        = os.getenv("EDITOR") or "vim"
 editor_cmd    = terminal .. " -e " .. editor
-browser       = "google-chrome"
+--browser       = "google-chrome --blacklist-accelerated-compositing --blacklist-webgl --disable-accelerated-2d-canvas --disable-accelerated-compositing --disable-accelerated-layers"
+browser       = "google-chrome --disable-gpu-sandbox"
 
 --{{---| Couth Alsa volume applet |-----------------------------------------------------------------
 
@@ -87,10 +83,10 @@ couth.CONFIG.ALSA_CONTROLS = { 'Master' }
 
 layouts =
 {
-	awful.layout.suit.tile,
-	awful.layout.suit.tile.left,
-  	awful.layout.suit.tile.bottom,
-  	awful.layout.suit.tile.top,
+--	awful.layout.suit.tile,
+--	awful.layout.suit.tile.left,
+--  	awful.layout.suit.tile.bottom,
+--  	awful.layout.suit.tile.top,
   	awful.layout.suit.floating
 }
 
@@ -133,7 +129,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { 
   	{ " @wesome",           myawesomemenu, beautiful.awesome_icon },
-	{ " Chrome", 		"google-chrome", freedesktop.utils.lookup_icon( { icon = 'google-chrome' } ) },
+	{ " Chrome", 		browser, freedesktop.utils.lookup_icon( { icon = 'google-chrome' } ) },
   	{ " root terminal",     terminalr, beautiful.terminalroot_icon},
   	{ " terminal",          terminal, beautiful.terminal_icon} 
 } })
@@ -400,10 +396,6 @@ globalkeys = awful.util.table.join(
 
 	-- Function keys
 	awful.key({ }, "XF86Sleep",                  function () awful.util.spawn_with_shell("sleep") end),
-	awful.key({ }, "XF86AudioPlay",              function () awful.util.spawn_with_shell("ncmpcpp toggle") end),
-	awful.key({ }, "XF86AudioStop",              function () awful.util.spawn_with_shell("ncmpcpp stop") end),
-	awful.key({ }, "XF86AudioPrev",              function () awful.util.spawn_with_shell("ncmpcpp prev") end),
-	awful.key({ }, "XF86AudioNext",              function () awful.util.spawn_with_shell("ncmpcpp next") end),
 	awful.key({ }, "XF86AudioLowerVolume",       function () couth.notifier:notify(couth.alsa:setVolume('Master','3dB-')) end),
 	awful.key({ }, "XF86AudioRaiseVolume",       function () couth.notifier:notify(couth.alsa:setVolume('Master','3dB+')) end),
 	awful.key({ }, "XF86AudioMute",              function () couth.notifier:notify(couth.alsa:setVolume('Master','toggle')) end),
@@ -472,12 +464,12 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
-    c:connect_signal("mouse::enter", function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-            client.focus = c
-        end
-    end)
+    -- c:connect_signal("mouse::enter", function(c)
+    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+    --         and awful.client.focus.filter(c) then
+    --         client.focus = c
+    --     end
+    -- end)
 
     if not startup then
         -- Set the windows at the slave,
