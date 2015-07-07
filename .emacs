@@ -2,6 +2,7 @@
 (require 'package)
 (require 'server)
 
+(setq inhibit-splash-screen t)
 (when (>= emacs-major-version 24)
   (package-initialize)
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
@@ -21,7 +22,7 @@
   (mapcar 'load (file-expand-wildcards (concat user-site-start-dir "*.el"))))
 
 (fset 'yes-or-no-p 'y-or-n-p)
-      
+
 
 (load-theme 'monokai t)
 (custom-set-variables
@@ -37,14 +38,22 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
 
+
 ;; No bar and toolbar!
 (menu-bar-mode 0)
 (tool-bar-mode 0)
+(scroll-bar-mode 0)
 
 ;; kill whole line
 (setq kill-whole-line t)
 (global-set-key (kbd "C-k") 'kill-whole-line)
 
+;; Visual Bell
+(setq echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell t)
+(show-paren-mode t)
+
 (setq backup-inhibited t)
-; Server Mode
+					; Server Mode
 (unless (server-running-p) (server-start))
