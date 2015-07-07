@@ -47,6 +47,8 @@
 ;; kill whole line
 (setq kill-whole-line t)
 (global-set-key (kbd "C-k") 'kill-whole-line)
+(global-set-key (kbd "C-o") 'editor-append-line)
+(global-set-key (kbd "C-S-o") 'editor-prepend-line)
 
 ;; Visual Bell
 (setq echo-keystrokes 0.1
