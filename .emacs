@@ -55,5 +55,11 @@
 (show-paren-mode t)
 
 (setq backup-inhibited t)
-					; Server Mode
+
+(add-hook 'before-save-hook
+	  (lambda ()
+	    (when (not (derived-mode-p 'markdown-mode))
+	      (delete-trailing-whitespace))))
+
+;; Server Mode
 (unless (server-running-p) (server-start))
