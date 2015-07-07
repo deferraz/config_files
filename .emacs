@@ -21,6 +21,7 @@
     (normal-top-level-add-subdirs-to-load-path))
   (mapcar 'load (file-expand-wildcards (concat user-site-start-dir "*.el"))))
 
+(require 'lines)
 (fset 'yes-or-no-p 'y-or-n-p)
 
 

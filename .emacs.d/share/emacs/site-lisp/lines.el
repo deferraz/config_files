@@ -3,8 +3,10 @@
   (move-beginning-of-line arg)
   (open-line 1))
 
-(defune editor-append-line (&optional arg)
+(defun editor-append-line (&optional arg)
   (interactive "P")
   (move-end-of-line arg)
   (open-line 1)
   (forward-line 1))
+
+(provide 'lines)
