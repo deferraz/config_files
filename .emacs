@@ -23,6 +23,8 @@
 
 (require 'lines)
 (fset 'yes-or-no-p 'y-or-n-p)
+;; Flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 
 (load-theme 'monokai t)
