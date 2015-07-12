@@ -1,6 +1,8 @@
 ; -*- mode: emacs-lisp; -*-
 (require 'package)
 (require 'server)
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (setq inhibit-splash-screen t)
 (when (>= emacs-major-version 24)
