@@ -1,6 +1,7 @@
 ; -*- mode: emacs-lisp; -*-
 (require 'package)
 (require 'server)
+(require 'ido)
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
@@ -43,6 +44,10 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
 
+;; Ido Mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
 ;; No bar and toolbar!
 (menu-bar-mode 0)
