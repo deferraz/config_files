@@ -48,6 +48,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+(setq ido-create-new-buffer 'always)
 
 ;; No bar and toolbar!
 (menu-bar-mode 0)
