@@ -42,7 +42,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
+   (if (eq system-type 'darwin)
+     '(default ((t (:family "Mononoki" :foundry "unknown" :slant normal :weight normal :height 133 :width normal))))
+   )
+ )
 
 ;; Ido Mode
 (setq ido-enable-flex-matching t)
