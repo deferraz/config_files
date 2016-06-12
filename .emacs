@@ -76,6 +76,10 @@
 	  (lambda ()
 	    (when (not (derived-mode-p 'markdown-mode))
 	      (delete-trailing-whitespace))))
+;; Use dump jump for jump to definition https://github.com/jacktasia/dumb-jump
+(unless (package-installed-p 'dumb-jump)
+  (package-install 'dumb-jump))
+(dumb-jump-mode)
 
 ;; Server Mode
 (unless (server-running-p) (server-start))
