@@ -3,7 +3,14 @@
 (require 'server)
 (require 'ido)
 (custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(package-selected-packages
+   (quote
+    (crontab-mode yaml-mode smooth-scrolling slime rust-mode powerline php-mode monokai-theme markdown-mode magit linum-relative jedi intero go-mode flycheck-rust dumb-jump dired+ debian-changelog-mode clojure-mode ace-window ace-jump-mode))))
 
 (setq inhibit-splash-screen t)
 (when (>= emacs-major-version 24)
@@ -66,7 +73,7 @@
 
 (add-hook 'before-save-hook
 	  (lambda ()
-	    (when (not (derived-mode-p 'markdown-mode))
+	    (when (not (or (derived-mode-p 'markdown-mode) (derived-mode-p 'crontab-mode)))
 	      (delete-trailing-whitespace))))
 ;; Use dump jump for jump to definition https://github.com/jacktasia/dumb-jump
 (unless (package-installed-p 'dumb-jump)
