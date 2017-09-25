@@ -1,3 +1,5 @@
 ; -*- mode: emacs-lisp; -*-
-(unless (package-installed-p 'aggressive-indent)
-  (package-install 'aggressive-indent))
+(add-hook 'python-mode-hook
+	  (lambda ()
+	    (setq py-indent-offset 4)
+	    (modify-syntax-entry ?_ "_")))

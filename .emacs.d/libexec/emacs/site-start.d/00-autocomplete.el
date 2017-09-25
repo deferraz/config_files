@@ -1,5 +1,7 @@
 ; -*- mode: emacs-lisp; -*-
-(unless (package-installed-p 'auto-complete)
-  (package-install 'auto-complete))
-(require 'auto-complete-config)
-(ac-config-default)
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)))

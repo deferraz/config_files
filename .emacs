@@ -2,8 +2,6 @@
 (require 'package)
 (require 'server)
 (require 'ido)
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (setq inhibit-splash-screen t)
 (when (>= emacs-major-version 24)
@@ -15,6 +13,15 @@
 (unless (boundp 'user-emacs-directory)
   (setq user-emacs-directory "~/.emacs.d/"))
 
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(use-package exec-path-from-shell
+	     :config
+	     (when (memq window-system '(mac ns x))
+	       (exec-path-from-shell-initialize)))
+
 (let ((user-site-lisp-dir (concat user-emacs-directory "share/emacs/site-lisp/"))
       (user-theme-dir (concat user-emacs-directory "themes/"))
       (user-site-start-dir (concat user-emacs-directory "libexec/emacs/site-start.d/")))
@@ -24,10 +31,26 @@
     (normal-top-level-add-subdirs-to-load-path))
   (mapcar 'load (file-expand-wildcards (concat user-site-start-dir "*.el"))))
 
+(use-package try
+	     :ensure t)
+(use-package which-key
+	     :ensure t
+	     :config
+	     (which-key-mode))
+
 (require 'lines)
+(global-hl-line-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
+(global-set-key (kbd "<f5>") 'revert-buffer)
+;; Save whatever’s in the current (system) clipboard before
+;; replacing it with the Emacs’ text.
+;; https://github.com/dakrone/eos/blob/master/eos.org
+(setq save-interprogram-paste-before-kill t)
 ;; Flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
 
 
 (load-theme 'monokai t)
@@ -37,7 +60,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Go mono" :foundry "unknown" :slant normal :weight normal :height 133 :width normal)))))
+ '(default ((t (:family "Mononoki" :foundry "unknown" :slant normal :weight normal :height 133 :width normal))))
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
 
 ;; Ido Mode
 (setq ido-enable-flex-matching t)
@@ -75,3 +99,11 @@
 
 ;; Server Mode
 (unless (server-running-p) (server-start))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (counsel org-bullets yaml-mode which-key use-package try slime rust-mode powerline php-mode monokai-theme markdown-mode magit linum-relative js2-mode intero go-mode flycheck-rust dumb-jump dired+ debian-changelog-mode clojure-mode auto-complete ace-window ace-jump-mode))))
