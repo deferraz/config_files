@@ -90,7 +90,7 @@
 
 (add-hook 'before-save-hook
 	  (lambda ()
-	    (when (not (derived-mode-p 'markdown-mode))
+	    (when (not (or (derived-mode-p 'markdown-mode) (derived-mode-p 'crontab-mode)))
 	      (delete-trailing-whitespace))))
 ;; Use dump jump for jump to definition https://github.com/jacktasia/dumb-jump
 (unless (package-installed-p 'dumb-jump)
@@ -100,6 +100,7 @@
 ;; Server Mode
 (unless (server-running-p) (server-start))
 (custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
