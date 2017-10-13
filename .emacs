@@ -18,9 +18,10 @@
   (package-install 'use-package))
 
 (use-package exec-path-from-shell
-	     :config
-	     (when (memq window-system '(mac ns x))
-	       (exec-path-from-shell-initialize)))
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 (let ((user-site-lisp-dir (concat user-emacs-directory "share/emacs/site-lisp/"))
       (user-theme-dir (concat user-emacs-directory "themes/"))
@@ -100,11 +101,11 @@
 ;; Server Mode
 (unless (server-running-p) (server-start))
 (custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized))))
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
     (counsel org-bullets yaml-mode which-key use-package try slime rust-mode powerline php-mode monokai-theme markdown-mode magit linum-relative js2-mode intero go-mode flycheck-rust dumb-jump dired+ debian-changelog-mode clojure-mode auto-complete ace-window ace-jump-mode))))
